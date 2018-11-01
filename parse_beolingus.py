@@ -1,5 +1,14 @@
-import pickle
-import json
+import re
+import locale
+
+import input_output
+
+## Nimmt locale der akt. Maschine
+#locale.setlocale(locale.LC_ALL, '')
+
+## Setzt locale auf deutsch, FLAGS variieren je nach Maschine
+#locale.setlocale(locale.LC_ALL, 'de_DE')
+locale.setlocale(locale.LC_ALL, 'german')
 
 def beolingus_as_list(file):
     lines = []
@@ -9,9 +18,6 @@ def beolingus_as_list(file):
             if not line.startswith('#'):
                 lines.append(line)
     return lines
-
-
-lines = beolingus_as_list('data/de-en.txt')
 
 
 def split_beolingus(lines):
@@ -32,38 +38,26 @@ def split_beolingus(lines):
     return beo_dict
 
 
-beo_dict = split_beolingus(lines)
+beo_list = beolingus_as_list('data/de-en.txt')
+beo_dict = split_beolingus(beo_list)
+# write_dict('data/splitted_beolingus.txt', beo_dict)
+# serialize('data/splitted_beolingus.pickle', beo_dict)
+# beo_dict = input_output.deserialize('data/splitted_beolingus.pickle')
+pos_pattern = re.compile(r'\{\w+\}')
+usg_pattern = re.compile(r'\[\w+\.?\]')
+usg_set = set()
+counter = 0
+for k, v in beo_dict.items():
+    # if counter < 10:
+    usg_matches = usg_pattern.findall(str(v))
+    for match in usg_matches:
+        usg_set.add(match)
+    counter += 1
 
 
-def write_beolingus(beo_dict):
-    file=open('beolingus_output.txt','w', encoding="utf-8")
-    for k, v in beo_dict.items():
-        file.write(str(k)+str(v)+"\n")
 
+input_output.write_set("data/write_set.txt",usg_set)
 
-write_beolingus(beo_dict)
-
-
-def serialize_beolingus(pickled_beolingus):
-    with open('beolingus_serialized.txt','wb') as file:
-        file.write(pickled_beolingus)
-
-
-pickled_beolingus=pickle.dumps(beo_dict)
-serialize_beolingus(pickled_beolingus)
-
-
-def load_beolingus(pickled_beolingus):
-    file = open('beolingus_unserialized.txt', 'w', encoding="utf-8")
-    unpickled_beolingus = pickle.load(open(pickled_beolingus, 'rb'))
-    file.write(str(unpickled_beolingus))
-
-
-load_beolingus('beolingus_serialized.txt')
-
-
-# counter = 0
-# for k, v in beo_dict.items():
-#     if counter < 10:
-#         (k, v)
-#     counter += 1
+# print(type(usg_set))
+# for e in usg_set:
+#     print(e)
