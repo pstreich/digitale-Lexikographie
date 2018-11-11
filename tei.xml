@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>my first dictionary in TEI</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+      </fileDesc>
+  </teiHeader>
+  <text>
+      <body>
+         <div>
+          <head>Deutsch-Englisch</head>
+          <entry>
+             <form>
+                <orth>A</orth>
+                <orth>Ais</orth>#
+                <orth>As</orth>
+                <orth>Aisis</orth>
+                <orth>Ases</orth>
+                <orth>A-Dur</orth>
+                <gram type="pos">n.</gram>
+             </form>
+             <sense>musikalischer Kontext</sense>
+          </entry>
+          <entry>
+             <form>
+                <orth>das A und O</orth>
+                <lbl>ugs.</lbl>
+             </form>
+          </entry>
+          <entry>
+             <form>
+                <orth>A- und B-Boden</orth>
+                <orth>A- und B-Horizont (des Bodenprofils)</orth>
+                <gram type="gender">m.</gram>
+             </form>
+             <form>
+                <orth>A- und B-Böden</orth>
+                <orth>A- und B-Horizonte</orth>
+                <gram type="number">pl.</gram>
+             </form>
+          </entry>
+          <entry>
+             <form>
+                <orth>Aale</orth>
+                <orth>Aalartige</orth>
+                <gram type="number">pl.</gram>
+             </form>           
+          </entry>
+          <entry>
+             <form>
+                <orth>echte Aale</orth>
+                <orth>Flussaale</orth>
+                <orth>Süßwasseraale</orth>
+                <gram type="number">pl.</gram>
+             </form>
+             <form>
+                <orth>Aal grün</orth>
+                <orth>grüner Aaal</orth>
+                <lbl>cook.</lbl>
+             </form>
+             <form>
+                <orth>Aal blau</orth>
+                <orth>baluer Aaal</orth>
+                <lbl>cook.</lbl>
+             </form>
+             <form>
+                <orth>Aal in Aspik</orth>
+                <orth>Aal in Gelee</orth>
+                <lbl>cook.</lbl>
+             </form>
+          </entry>
+         </div>
+         <div>
+            <head>English-German</head>
+            <entry>
+               <form>
+                  <orth>A</orth>
+                  <orth>A sharp</orth>#
+                  <orth>A flat</orth>
+                  <orth>A  double sharp</orth>
+                  <orth>A double flat</orth>
+                  <orth>A major</orth>
+                  <gram type="pos">n.</gram>
+               </form>
+               <sense>musikalischer Kontext</sense>
+            </entry>
+            <entry>
+               <form>
+                  <orth>the nuts and bolts</orth>
+                  <lbl>coll.</lbl>
+               </form>
+            </entry>
+            <entry>
+               <form>
+                  <orth>A and B horizons</orth>
+                  <orth>solum</orth>
+                  <gram type="gender">m.</gram>
+               </form>
+               <form>
+                  <orth>A and B horizons</orth>
+                  <orth>sola</orth>
+                  <orth>solums</orth>
+                  <gram type="number">pl.</gram>
+               </form>
+            </entry>
+            <entry>
+               <form>
+                  <orth>eels</orth>
+                  <gram type="number">pl.</gram>
+               </form>           
+            </entry>
+            <entry>
+               <form>
+                  <orth>freshwater eels</orth>
+                  <orth>anguilla</orth>
+                  <gram type="number">pl.</gram>
+               </form>
+               <form>
+                  <orth>Boiled Eel with Parsely Sauce</orth>
+                  <lbl>cook.</lbl>
+               </form>
+               <form>
+                  <orth>Eel au bleu</orth>
+                  <orth>Eel steamed and served with Butter</orth>
+                  <lbl>cook.</lbl>
+               </form>
+               <form>
+                  <orth>Jellied Eel</orth>
+                  <lbl>cook.</lbl>
+               </form>
+            </entry>
+         </div>
+      </body>
+  </text>
+</TEI>
