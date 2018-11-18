@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
-	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+        schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
+   <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title>my first dictionary in TEI</title>
+            <title>Title</title>
          </titleStmt>
          <publicationStmt>
             <p>Publication Information</p>
@@ -15,132 +15,422 @@
             <p>Information about the source</p>
          </sourceDesc>
       </fileDesc>
-  </teiHeader>
-  <text>
+   </teiHeader>
+   <text>
       <body>
-         <div>
-          <head>Deutsch-Englisch</head>
-          <entry>
-             <form>
-                <orth>A</orth>
-                <orth>Ais</orth>#
-                <orth>As</orth>
-                <orth>Aisis</orth>
-                <orth>Ases</orth>
-                <orth>A-Dur</orth>
-                <gram type="pos">n.</gram>
-             </form>
-             <sense>musikalischer Kontext</sense>
-          </entry>
-          <entry>
-             <form>
-                <orth>das A und O</orth>
-                <lbl>ugs.</lbl>
-             </form>
-          </entry>
-          <entry>
-             <form>
-                <orth>A- und B-Boden</orth>
-                <orth>A- und B-Horizont (des Bodenprofils)</orth>
-                <gram type="gender">m.</gram>
-             </form>
-             <form>
-                <orth>A- und B-Böden</orth>
-                <orth>A- und B-Horizonte</orth>
-                <gram type="number">pl.</gram>
-             </form>
-          </entry>
-          <entry>
-             <form>
-                <orth>Aale</orth>
-                <orth>Aalartige</orth>
-                <gram type="number">pl.</gram>
-             </form>           
-          </entry>
-          <entry>
-             <form>
-                <orth>echte Aale</orth>
-                <orth>Flussaale</orth>
-                <orth>Süßwasseraale</orth>
-                <gram type="number">pl.</gram>
-             </form>
-             <form>
-                <orth>Aal grün</orth>
-                <orth>grüner Aaal</orth>
-                <lbl>cook.</lbl>
-             </form>
-             <form>
-                <orth>Aal blau</orth>
-                <orth>baluer Aaal</orth>
-                <lbl>cook.</lbl>
-             </form>
-             <form>
-                <orth>Aal in Aspik</orth>
-                <orth>Aal in Gelee</orth>
-                <lbl>cook.</lbl>
-             </form>
-          </entry>
-         </div>
-         <div>
-            <head>English-German</head>
+         <!-- 1	{'A {n}; Ais {n}; As {n}; Aisis {n}; Ases {n} [mus.] ': ' A; A sharp; A flat; A double sharp; A double flat ', ' A-Dur {n} ': ' A major'}-->
+         <superEntry xml:id="lemma_1" n="1">
             <entry>
                <form>
-                  <orth>A</orth>
-                  <orth>A sharp</orth>#
-                  <orth>A flat</orth>
-                  <orth>A  double sharp</orth>
-                  <orth>A double flat</orth>
-                  <orth>A major</orth>
-                  <gram type="pos">n.</gram>
+                  <orth xml:lang="de">A</orth>
+                  <usg>mus</usg>
                </form>
-               <sense>musikalischer Kontext</sense>
+               <gramGrp>
+                  <gram>n</gram>
+               </gramGrp>
+               <sense xml:lang="en"><def>A</def></sense>
             </entry>
             <entry>
                <form>
-                  <orth>the nuts and bolts</orth>
-                  <lbl>coll.</lbl>
+                  <orth xml:lang="de">Ais</orth>
+                  <usg>mus</usg>
                </form>
+               <gramGrp>
+                  <gram>n</gram>
+               </gramGrp>
+               <sense xml:lang="en"><def>A sharp</def></sense>
             </entry>
             <entry>
                <form>
-                  <orth>A and B horizons</orth>
-                  <orth>solum</orth>
-                  <gram type="gender">m.</gram>
+                  <orth xml:lang="de">As</orth>
+                  <usg>mus</usg>
                </form>
-               <form>
-                  <orth>A and B horizons</orth>
-                  <orth>sola</orth>
-                  <orth>solums</orth>
-                  <gram type="number">pl.</gram>
-               </form>
+               <gramGrp>
+                  <gram>n</gram>
+               </gramGrp>
+               <sense xml:lang="en"><def>A flat</def></sense>
             </entry>
             <entry>
                <form>
-                  <orth>eels</orth>
-                  <gram type="number">pl.</gram>
-               </form>           
+                  <orth xml:lang="de">Aisis</orth>
+                  <usg>mus</usg>
+               </form>
+               <gramGrp>
+                  <gram>n</gram>
+               </gramGrp>
+               <sense xml:lang="en"><def>A double sharp</def></sense>
             </entry>
             <entry>
                <form>
-                  <orth>freshwater eels</orth>
-                  <orth>anguilla</orth>
-                  <gram type="number">pl.</gram>
+                  <orth xml:lang="de">Ases</orth>
+                  <usg>mus</usg>
                </form>
+               <gramGrp>
+                  <gram>n</gram>
+               </gramGrp>
+               <sense xml:lang="en"><def>A double flat</def></sense>
+            </entry>
+            <entry>
                <form>
-                  <orth>Boiled Eel with Parsely Sauce</orth>
-                  <lbl>cook.</lbl>
+                  <orth xml:lang="de">Ais</orth>
+                  <usg>mus</usg>
                </form>
+               <gramGrp>
+                  <gram>n</gram>
+               </gramGrp>
+               <sense xml:lang="en"><def>A sharp</def></sense>
+            </entry>
+            <entry>
                <form>
-                  <orth>Eel au bleu</orth>
-                  <orth>Eel steamed and served with Butter</orth>
-                  <lbl>cook.</lbl>
+                  <orth xml:lang="de">A-Dur</orth>
+                  <usg>mus</usg>
                </form>
+               <gramGrp>
+                  <gram>n</gram>
+               </gramGrp>
+               <sense xml:lang="en"><def>A major</def></sense>
+            </entry>
+         </superEntry>
+         <!--2 {'das A und O [ugs.] ': ' the nuts and bolts [coll.]'} -->
+         <entry>
+            <form>
+               <orth xml:lang="de">das A und O</orth>
+               <usg>ugs</usg>
+            </form>
+            <sense xml:lang="en">
+               <def>the nuts and bolts</def>
+               <usg>coll</usg>
+            </sense>
+         </entry>
+         <!-- 3	{'A- und B-Boden {m}; A- und B-Horizont {m} (des Bodenprofils) [agr.] [geol.] ': ' A and B horizons; solum ', ' A- und B-Böden {pl}; A- und B-Horizonte {pl} ': ' A and B horizons; sola; solums'} -->
+         <superEntry n="3">
+            <entry>
                <form>
-                  <orth>Jellied Eel</orth>
-                  <lbl>cook.</lbl>
+                  <orth xml:lang="de">A- und B-Boden</orth>
+                  <usg>agr</usg>
+                  <usg>geol</usg>
+               </form>
+               <gramGrp>
+                  <gram>m</gram>
+               </gramGrp>
+               <sense xml:lang="en">A and B horizons</sense>
+            </entry>
+            <entry>
+               <form>
+                  <orth xml:lang="de">A- und B-Horizont</orth>
+                  <note type="desc">(des Bodenprofils)</note>
+                  <usg>agr</usg>
+                  <usg>geol</usg>
+               </form>
+               <gramGrp>
+                  <gram>m</gram>
+               </gramGrp>
+               <sense xml:lang="en">solum</sense>
+            </entry>
+            <entry>
+               <form>
+                  <orth xml:lang="de">A- und B-Böden</orth>
+                  <usg>agr</usg>
+                  <usg>geol</usg>
+               </form>
+               <gramGrp>
+                  <gram>pl</gram>
+               </gramGrp>
+               <sense xml:lang="en">A and B horizons </sense>
+            </entry>
+            <entry>
+               <form>
+                  <orth xml:lang="de">A- und B-Böden</orth>
+                  <usg>agr</usg>
+                  <usg>geol</usg>
+               </form>
+               <gramGrp>
+                  <gram>pl</gram>
+               </gramGrp>
+               <sense xml:lang="en">A and B horizons</sense>
+            </entry>
+            <entry>
+               <form>
+                  <orth xml:lang="de">A- und B-Horizonte</orth>
+               </form>
+               <gramGrp>
+                  <gram>pl</gram>
+               </gramGrp>
+               <!--mh?-->
+               <sense n="1" xml:lang="en">
+                  <def n="1">sola</def>
+                  <def n="2">solum</def>
+               </sense>
+               <sense n="2" xml:lang="en">
+                  <def n="2">solum</def>
+               </sense>
+            </entry>
+         </superEntry>
+         <!--4	{'Aale {pl}; Aalartige {pl} (Anguilliformes) (zoologische Ordnung) ': ' eels (zoological order)'} -->
+         
+         <entry>
+            <form>
+               <orth>Aale</orth>
+            </form>
+            <form>
+               <orth>Aalartige</orth>
+            </form>
+            <gramGrp>
+               <gram>pl</gram>
+            </gramGrp>
+            <sense><def>eels</def><note type="desc">(zoological order)</note></sense>
+         </entry>
+         
+         <!--5	{'echte Aale {pl}; Flussaale {pl}; Süßwasseraale {pl} (Anguilla) (zoologische Gattung) ': ' freshwater eels; anguilla (zoological genus) ', ' Aal grün; grüner Aal [cook.] ': ' Boiled Eel served with Parsely Sauce ', ' Aal blau; blauer Aal [cook.] ': ' Eel au bleu; Eel steamed and served with Butter ', ' Aal in Aspik; Aal in Gelee [cook.] ': ' Jellied Eel'} -->
+         <superEntry>
+            <entry>
+               <form><orth>echte Aale</orth></form>
+               <form><orth>Flussaale</orth></form>
+               <form><orth>Süßwasseraale</orth>
+                  <note type="desc">(Anguilla) (zoologische Gattung)</note>
+               </form>
+               <gramGrp>
+                  <gram>pl</gram>
+               </gramGrp>
+               <sense><def>freshwater eels</def></sense>
+               <sense><def>anguilla</def><note type="desc">(zoological order)</note></sense>
+            </entry>
+            <entry>
+               <form><orth>Aal grün</orth></form>
+               <form><orth>grüner Aal</orth></form>
+               <usg>cook</usg>
+               <sense><def>Boiled Eel served with Parsely Sauce</def></sense>
+            </entry>
+            <entry>
+               <form><orth>Aal blau</orth></form>
+               <form><orth>blauer Aal</orth></form>
+               <usg>cook</usg>
+               <sense>
+                  <def>Eel au bleu</def>
+                  <def>Eel steamed and served with Butter</def>
+               </sense>
+            </entry>
+            <entry>
+               <form><orth>Aal in Aspik</orth></form>
+               <form><orth>Aal in Gelee</orth></form>
+               <usg>cook</usg>
+               <sense>
+                  <def>Jellied Eel</def>
+               </sense>
+            </entry>
+         </superEntry>
+         
+         <superEntry xml:id="lemma_6" n="6">
+            <entry>
+               <form>
+                  <orth xml:lang="de"></orth>
                </form>
             </entry>
-         </div>
+         </superEntry>
+         
+         <!-- 6{'Aalbestand {m} ': ' eel      ', ' Aalbestände {pl} ': ' eel stocks'}-->
+         <entry>
+            <form>
+               <orth xml:lang="de">Aalbestand</orth>
+            </form>
+            <gramGrp>
+               <gram>m</gram>
+            </gramGrp>
+            <form>
+               <orth xml:lang="de">Aalbestände</orth>
+            </form>
+            <gramGrp>
+               <gram>pl</gram>
+            </gramGrp>
+            <form>
+               <orth xml:lang="en">eel</orth>
+            </form>
+            <form>
+               <orth xml:lang="en">eel stocks</orth>
+            </form>
+         </entry>
+         
+         <!--7{'Aalspieß {m} ': ' eel spear ', ' Aalspieße {pl} ': ' eel spears'}-->
+         <entry>
+            <form>
+               <orth xml:lang="de">Aalspieß</orth>
+            </form>
+            <gramGrp>
+               <gram>m</gram>
+            </gramGrp>
+            <form>
+               <orth xml:lang="de">Aalspieße</orth>
+            </form>
+            <gramGrp>
+               <gram>pl</gram>
+            </gramGrp>
+            <form>
+               <orth xml:lang="en">eel spear</orth>
+            </form>
+            <form>
+               <orth xml:lang="en">eel spears</orth>
+            </form>
+         </entry>
+         
+         <!--8{'Aalen {n}; Aalenium {n} (erdgeschichtliche Stufe) [geol.] ': " Aalenian (stage in the Earth's history)"}-->
+         <entry>
+            <form>
+               <orth xml:lang="de">Aalen</orth>
+               <orth xml:lang="de">Aalenium</orth>
+               <note type="desc">(des Bodenprofils)</note>
+               <usg>geol.</usg>
+            </form>
+            <gramGrp>
+               <gram>n</gram>
+            </gramGrp>
+            <form>
+               <orth xml:lang="en">Aalenian</orth>
+               <note type="desc">(stage in the Earth's history)</note>
+            </form>
+         </entry>
+         
+         <!--9{'Aalfang {m} ': ' eel fishing'}-->
+         <entry>
+            <form>
+               <orth xml:lang="de">Aalfang</orth>
+            </form>
+            <gramGrp>
+               <gram>m</gram>
+            </gramGrp>
+            <form>
+               <orth xml:lang="en">eel fishing</orth>
+            </form>
+         </entry>
+         
+         <!--10{'Aalfischerei {f} ': ' eel fishing'}-->
+         <entry>
+            <form>
+               <orth xml:lang="de">Aalfischerei</orth>
+            </form>
+            <gramGrp>
+               <gram>f</gram>
+            </gramGrp>
+            <form>
+               <orth xml:lang="en">eel fishing</orth>
+            </form>
+         </entry>
+         
+         <!--11{'Aalhaut {f} ': ' eelskin'}-->
+         <entry>
+            <form>
+               <orth xml:lang="de">Aalhaut</orth>
+            </form>
+            <gramGrp>
+               <gram>f</gram>
+            </gramGrp>
+            <form>
+               <orth xml:lang="en">Aalhaut</orth>
+            </form>
+         </entry>
+         
+         <!-- 12{'Aalleiter {f}; Aaltreppe {f}; Aalpass {m} (Wasserbau) ': ' eel ladder (water engineering) ', ' Aalleitern {pl}; Aaltreppen {pl}; Aalpässe {pl} ': ' eel ladders'}-->
+         <superEntry xml:id="lemma_12" n="12">
+            <entry>
+               <form>
+                  <orth xml:lang="de">Aalleiter</orth>
+                  <orth xml:lang="de">Aaltreppe</orth>
+               </form>
+               <gramGrp>
+                  <gram>f</gram>
+               </gramGrp>
+               <sense xml:lang="en">eel ladder</sense>
+            </entry>
+            <entry>
+               <form>
+                  <orth xml:lang="de">Aalpass</orth>
+                  <note type="desc">(Wasserbau)</note>
+               </form>
+               <gramGrp>
+                  <gram>m</gram>
+               </gramGrp>
+               <sense xml:lang="en">eel ladder (water engineering)</sense>
+            </entry>
+            <entry>
+               <form>
+                  <orth xml:lang="de">Aalleitern</orth>
+                  <orth xml:lang="de">Aaltreppen</orth>
+                  <orth xml:lang="de">Aalpässe</orth>
+               </form>
+               <gramGrp>
+                  <gram>pl</gram>
+               </gramGrp>
+               <sense xml:lang="en">eel ladders</sense>
+            </entry>
+         </superEntry>
+         
+         <!-- 13	{'Aalmolche {pl}; Fischmolche {pl} (Amphiuma) (zoologische Gattung) [zool.] <Aalmolch> ': ' amphiuma salamanders; amphiumas; congo eels [coll.]; congo snakes [coll.] (zoological genus)'}-->
+         <superEntry xml:id="lemma_13" n="13">
+            <entry>
+               <form>
+                  <orth xml:lang="de">Aalmolche</orth>
+               </form>             
+               <gramGrp>
+                  <gram>pl</gram>
+               </gramGrp>
+               <sense xml:lang="en">amphiumas</sense>
+            </entry>
+            <entry>
+               <form>
+                  <orth type="standard" xml:lang="de">Fischmolche</orth>
+                  <note type="desc.">(Amphiuma) (zoologische Gattung)</note>
+                  <usg>zool.</usg>
+                  <orth type="variant">Aalmolch</orth>
+               </form>
+               <gramGrp>
+                  <gram>pl</gram>
+               </gramGrp>
+               <sense n="1" xml:lang="en">amphiuma salamanders</sense>
+               <sense n="2" xml:lang="en">amphiumas</sense>
+               <sense n="3" xml:lang="en">congo eels</sense>
+               <sense n="3" xml:lang="en">congo snakes (zoological genus)</sense>
+            </entry>            
+         </superEntry>
+         
+         <!-- 14{'Aalmuttern {pl}; Gebärfische {pl} (Zoarcidae) (zoologische Familie) [zool.] ': ' eelpouts (zoological family)'}-->
+         <superEntry xml:id="lemma_14" n="14">
+            <entry>
+               <form>
+                  <orth xml:lang="de">Aalmuttern</orth>
+                  <orth xml:lang="de">Gebärfische</orth>
+                  <note type="desc">(Zoarcidae) (zoologische Familie)</note>
+                  <usg>zool.</usg>
+               </form>
+               <gramGrp>
+                  <gram>pl</gram>
+               </gramGrp>
+               <sense xml:lang="en">eelpouts (zoological family)</sense>
+            </entry>
+         </superEntry>
+         
+         <!-- 15{'Aalräucherei {f} ': ' eel smokery; eel-smoking business <eelsmoking business> <eel smoking business> ', ' Aalräuchereien {pl} ': ' eel smokeries; eel-smoking businesses'}-->
+         <superEntry xml:id="lemma_15" n="15">
+            <entry>
+               <form>
+                  <orth xml:lang="de">Aalräucherei</orth>
+               </form>
+               <gramGrp>
+                  <gram>f</gram>
+               </gramGrp>
+               <sense n="1" xml:lang="en">eel smokery</sense>
+               <sense n="2" xml:lang="en">eel-smoking business [eelsmoking business] [eel smoking business}</sense>
+            </entry>
+            <entry>
+               <form>
+                  <orth xml:lang="de">Aalräuchereien</orth>
+               </form>
+               <gramGrp>
+                  <gram>pl</gram>
+               </gramGrp>
+               <sense n="1" xml:lang="en">eel smokeries</sense>
+               <sense n="2" xml:lang="en">eel-smoking businesses</sense>
+            </entry>
+         </superEntry>
+         
       </body>
-  </text>
+   </text>
 </TEI>
