@@ -1,14 +1,7 @@
 import re
-import locale
-
+import unicodedata
 import input_output
 
-## Nimmt locale der akt. Maschine
-#locale.setlocale(locale.LC_ALL, '')
-
-## Setzt locale auf deutsch, FLAGS variieren je nach Maschine
-#locale.setlocale(locale.LC_ALL, 'de_DE')
-locale.setlocale(locale.LC_ALL, 'german')
 
 def beolingus_as_list(file):
     lines = []
@@ -38,26 +31,27 @@ def split_beolingus(lines):
     return beo_dict
 
 
-beo_list = beolingus_as_list('data/de-en.txt')
-beo_dict = split_beolingus(beo_list)
-# write_dict('data/splitted_beolingus.txt', beo_dict)
-# serialize('data/splitted_beolingus.pickle', beo_dict)
-# beo_dict = input_output.deserialize('data/splitted_beolingus.pickle')
-pos_pattern = re.compile(r'\{\w+\}')
-usg_pattern = re.compile(r'\[\w+\.?\]')
-usg_set = set()
-counter = 0
-for k, v in beo_dict.items():
-    # if counter < 10:
-    usg_matches = usg_pattern.findall(str(v))
-    for match in usg_matches:
-        usg_set.add(match)
-    counter += 1
+def get_usg(beo_as_dict):
+    usg_set = set()
+    usg_pattern = re.compile(r'\[\w+\.?\]')
+    counter = 0
+    for k, v in beo_as_dict.items():
+        # if counter < 10:
+        usg_matches = usg_pattern.findall(str(v))
+        for match in usg_matches:
+            usg_set.add(match)
+        counter += 1
+    return usg_set
 
-
-
-input_output.write_set("data/write_set.txt",usg_set)
-
-# print(type(usg_set))
-# for e in usg_set:
+beo_lines=beolingus_as_list('data/de-en.txt')
+beo_dict=split_beolingus(beo_lines)
+input_output.serialize('data/splitted_beolingus.pickle', beo_dict)
+usg = get_usg(input_output.deserialize('data/splitted_beolingus.pickle'))
+# for e in usg:
+#     print('###')
 #     print(e)
+#     for c in e:
+#         print(c, unicodedata.name(c))
+
+
+
