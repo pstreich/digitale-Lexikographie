@@ -5,7 +5,7 @@ import input_output
 
 def beolingus_as_list(file):
     lines = []
-    with open(file, mode='r', encoding="utf-8") as f:
+    with open(file, mode='r') as f:
         for line in f:
             line = line.rstrip()
             if not line.startswith('#'):
@@ -43,15 +43,20 @@ def get_usg(beo_as_dict):
         counter += 1
     return usg_set
 
-beo_lines=beolingus_as_list('data/de-en.txt')
-beo_dict=split_beolingus(beo_lines)
-input_output.serialize('data/splitted_beolingus.pickle', beo_dict)
-usg = get_usg(input_output.deserialize('data/splitted_beolingus.pickle'))
-# for e in usg:
-#     print('###')
-#     print(e)
-#     for c in e:
-#         print(c, unicodedata.name(c))
+
+def get_pos(beo_as_dict):
+    pos_set = set()
+    pos_pattern = re.compile(r'\{\w+\.?\}')
+    counter = 0
+    for k, v in beo_as_dict.items():
+        # if counter < 10:
+        usg_matches = pos_pattern.findall(str(v))
+        for match in usg_matches:
+            pos_set.add(match)
+        counter += 1
+    return pos_set
 
 
-
+pos = get_pos(input_output.deserialize('data/splitted_beolingus.pickle'))
+for e in pos:
+    print(e)

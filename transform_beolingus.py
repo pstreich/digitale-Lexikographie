@@ -1,5 +1,5 @@
-from lxml import etree
 import re
+from lxml import etree
 import input_output
 
 
@@ -26,112 +26,100 @@ def transform_in_tei(beo_as_dict):
     text = etree.SubElement(root, 'text')
     body = etree.SubElement(text, 'body')
 
+    usg_pattern = re.compile(r'\[\w+\.?\]')
+    gramm_pattern = re.compile(r'\{\w+\.?\}')
+    note_pattern = re.compile((r'(\(\w+.*?\))'))
+
     for k1, v1 in beo_as_dict.items():
 
-        if str(v1).count(":") > 1:
-            mainentry = etree.Element('superEntry')
-        else:
-            mainentry = etree.Element('entry')
+        if len(v1) > 1:
+            super_entry = etree.Element('superEntry')
 
         for k2, v2 in v1.items():
+
+            entry = etree.Element('entry')
 
             splitted_forms = k2.split(';')
             splitted_senses = v2.split(';')
 
-            if len(splitted_forms) > 1:
-                for i, u in zip(range(len(splitted_forms)), range(len(splitted_senses))):
-                    subentry = etree.SubElement(mainentry, 'entry')
-                    form = etree.SubElement(subentry, 'form')
-                    orth = etree.SubElement(form, 'orth')
-                    f = splitted_forms[i]
-                    usg_list = re.findall(r'\[(\w+)\.?\]', f)
-                    for usg_entry in usg_list:
-                        usg = etree.SubElement(form, 'usg')
-                        usg.text = usg_entry
-                        f = f.replace("[" + usg_entry + ".]", "")
-                        f = f.replace("[" + usg_entry + "]", "")
-                    note_list = re.findall(r'(\(\w+.*?\))', f)
-                    if note_list:
-                        for note_entry in note_list:
-                            note = etree.SubElement(form, 'note')
-                            note.text = note_entry
-                            f = f.replace(note_entry, "")
-                    gram_list = re.findall(r'\{(\w+?)}', f)
-                    if gram_list:
-                        gramgrp = etree.SubElement(subentry, 'gramGrp')
-                        for gram_entry in gram_list:
-                            gram = etree.SubElement(gramgrp, 'gram')
-                            gram.text = gram_entry
-                            f = f.replace("{" + gram_entry + "}", "")
-                    orth.text = f
 
-                    s = splitted_senses[u]
-                    sense = etree.SubElement(subentry, 'sense')
-                    sense_def = etree.SubElement(sense, 'def')
-                    usg_list = re.findall(r'\[(\w+)\.?\]', s)
-                    if usg_list:
-                        for usg_entry in usg_list:
-                            usg = etree.SubElement(sense, 'usg')
-                            usg.text = usg_entry
-                            s = s.replace("[" + usg_entry + ".]", "")
-                            s = s.replace("[" + usg_entry + "]", "")
-                    note_list = re.findall(r'(\(\w+.*?\))', s)
-                    if note_list:
-                        for note_entry in note_list:
-                            note = etree.SubElement(sense, 'note')
-                            note.text = note_entry
-                            s = s.replace(note_entry, "")
-                    sense_def.text = s
+            for f in splitted_forms:
+                form = etree.SubElement(entry, 'form', attrib={"{http://www.w3.org/XML/1998/namespace}id": str(splitted_forms.index(f)+1)})
+                orth = etree.SubElement(form, 'orth', attrib={"{http://www.w3.org/XML/1998/namespace}lang": "de"})
+
+                gramm_matches = gramm_pattern.findall(f)
+                usg_matches = usg_pattern.findall(f)
+                usg_last_matches = usg_pattern.findall(splitted_forms[-1])
+                note_matches = note_pattern.findall(f)
+
+                # we assume , and only allow one gram per form
+                if len(gramm_matches) > 0:
+                    grammGrp = etree.SubElement(form, 'gramGrp')
+                    gramm = etree.SubElement(grammGrp, 'gram')
+                    gramm.text = gramm_matches[0]
+                    f = f.replace(gramm_matches[0], '')
+
+
+                if len(usg_last_matches) > 0:
+                    for match in usg_last_matches:
+                        usg = etree.SubElement(form, 'usg')
+                        usg.text = match
+                        f = f.replace(match, '')
+                        if len(usg_matches) > 0:
+                            for match2 in usg_matches:
+                                if match2 != match:
+                                    usg = etree.SubElement(form, 'usg')
+                                    usg.text = match2
+                                    f = f.replace(match2, '')
+
+
+                # if len(usg_matches) > 0:
+                #     for match in usg_matches:
+                #         usg = etree.SubElement(form, 'usg')
+                #         usg.text = match
+                #         f = f.replace(match, '')
+
+                if len(note_matches) > 0:
+                    for match in note_matches:
+                        note = etree.SubElement(form,'note')
+                        note.text = match
+                        f = f.replace(match,'')
+
+                f = f.strip()
+                orth.text = f
+            for s in splitted_senses:
+                sense = etree.SubElement(entry, 'sense', attrib={'{http://www.w3.org/XML/1998/namespace}lang': 'en', '{http://www.w3.org/XML/1998/namespace}id': str(splitted_senses.index(s)+1)})
+                usg_matches = usg_pattern.findall(s)
+                note_matches = note_pattern.findall(s)
+
+                if len(usg_matches) > 0:
+                    for match in usg_matches:
+                        usg = etree.SubElement(sense, 'usg')
+                        usg.text = match
+                        s = s.replace(match, '')
+
+                if len(note_matches) > 0:
+                    for match in note_matches:
+                        note = etree.SubElement(sense,'note')
+                        note.text = match
+                        s = s.replace(match,'')
+
+                definition = etree.SubElement(sense, 'def')
+                s = s.strip()
+                definition.text = s
+
+            if len(v1) > 1:
+                super_entry.append(entry)
+                super_entry.attrib['n'] = str(k1)
+                body.append(super_entry)
 
             else:
-                for f in splitted_forms:
-                    form = etree.SubElement(mainentry, 'form')
-                    orth = etree.SubElement(form, 'orth')
-                    usg_list = re.findall(r'\[(\w+)\.?\]', f)
-                    if usg_list:
-                        for usg_entry in usg_list:
-                            usg = etree.SubElement(form, 'usg')
-                            usg.text = usg_entry
-                            f = f.replace("[" + usg_entry + ".]", "")
-                            f = f.replace("[" + usg_entry + "]", "")
-                    note_list = re.findall(r'(\(\w+.*?\))', f)
-                    if note_list:
-                        for note_entry in note_list:
-                            note = etree.SubElement(form, 'note')
-                            note.text = note_entry
-                            f = f.replace(note_entry, "")
-                    gram_list = re.findall(r'\{(\w+?)}', f)
-                    if gram_list:
-                        gramgrp = etree.SubElement(mainentry, 'gramGrp')
-                        for gram_entry in gram_list:
-                            gram = etree.SubElement(gramgrp, 'gram')
-                            gram.text = gram_entry
-                            f = f.replace("{" + gram_entry + "}", "")
-                    orth.text = f
-
-                for s in splitted_senses:
-                    sense = etree.SubElement(mainentry, 'sense')
-                    sense_def = etree.SubElement(sense, 'def')
-                    usg_list = re.findall(r'\[(\w+)\.?\]', s)
-                    if usg_list:
-                        for usg_entry in usg_list:
-                            usg = etree.SubElement(sense, 'usg')
-                            usg.text = usg_entry
-                            s = s.replace("[" + usg_entry + ".]", "")
-                            s = s.replace("[" + usg_entry + "]", "")
-                    note_list = re.findall(r'(\(\w+.*?\))', s)
-                    if note_list:
-                        for note_entry in note_list:
-                            note = etree.SubElement(sense, 'note')
-                            note.text = note_entry
-                            s = s.replace(note_entry, "")
-                    sense_def.text = s
-
-        body.append(mainentry)
+                entry.attrib['n'] = str(k1)
+                body.append(entry)
 
     et = etree.ElementTree(root)
     return et
 
 
 et = transform_in_tei(input_output.deserialize('data/splitted_beolingus.pickle'))
-et.write('data/beolingus_tei.xml', pretty_print=True, xml_declaration=True, encoding='utf-8')
+et.write('data/beolingus_tei_2.xml', pretty_print=True, xml_declaration=True, encoding='utf-8')
