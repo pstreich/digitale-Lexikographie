@@ -1,1 +1,2 @@
-# digitale Lexikographie
+# digi_lex
+'Digitale Lexikographie' - Source code 

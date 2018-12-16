@@ -1,9 +1,26 @@
 import re
-from lxml import etree
 import input_output
+from lxml import etree
+
+
+def pre_process_beo(beo_as_dict):
+    seperator_pattern = re.compile(r';')
+    gramm_pattern = re.compile(r'(\((.*?)\))')
+    for k, v in beo_as_dict.items():
+        gramm_matches = gramm_pattern.findall(str(v))
+        for match in gramm_matches:
+            seperator_matches = seperator_pattern.findall(str(match[0]))
+            for m in seperator_matches:
+                xx = seperator_pattern.sub('|',match[0])
+                v = re.sub(r'\(.*?\)',xx,str(v))
+                print(v)
+
+    return beo_as_dict
 
 
 def transform_in_tei(beo_as_dict):
+    beo_as_dict = pre_process_beo(beo_as_dict)
+
     root = etree.Element('TEI', attrib={"xmlns": 'http://www.tei-c.org/ns/1.0'})
 
     ##HEADER
@@ -26,9 +43,11 @@ def transform_in_tei(beo_as_dict):
     text = etree.SubElement(root, 'text')
     body = etree.SubElement(text, 'body')
 
-    usg_pattern = re.compile(r'\[\w+\.?\]')
-    gramm_pattern = re.compile(r'\{\w+\.?\}')
-    note_pattern = re.compile((r'(\(\w+.*?\))'))
+    usg_pattern = re.compile(r'(\[(.*?)\])')
+    gramm_pattern = re.compile(r'(\{(.*?)\})')
+    desc_pattern = re.compile(r'(\((.*?)\))')
+
+    pattern=re.compile(r'')
 
     for k1, v1 in beo_as_dict.items():
 
@@ -42,70 +61,54 @@ def transform_in_tei(beo_as_dict):
             splitted_forms = k2.split(';')
             splitted_senses = v2.split(';')
 
-
             for f in splitted_forms:
-                form = etree.SubElement(entry, 'form', attrib={"{http://www.w3.org/XML/1998/namespace}id": str(splitted_forms.index(f)+1)})
-                orth = etree.SubElement(form, 'orth', attrib={"{http://www.w3.org/XML/1998/namespace}lang": "de"})
+                form = etree.SubElement(entry, 'form')
+                orth = etree.SubElement(form, 'orth')
 
                 gramm_matches = gramm_pattern.findall(f)
                 usg_matches = usg_pattern.findall(f)
-                usg_last_matches = usg_pattern.findall(splitted_forms[-1])
-                note_matches = note_pattern.findall(f)
+                desc_matches = desc_pattern.findall(f)
 
                 # we assume , and only allow one gram per form
                 if len(gramm_matches) > 0:
                     grammGrp = etree.SubElement(form, 'gramGrp')
                     gramm = etree.SubElement(grammGrp, 'gram')
-                    gramm.text = gramm_matches[0]
-                    f = f.replace(gramm_matches[0], '')
+                    gramm.text = gramm_matches[0][1]
+                    f = f.replace(gramm_matches[0][0], '')
 
-
-                if len(usg_last_matches) > 0:
-                    for match in usg_last_matches:
+                if len(usg_matches) > 0:
+                    for match in usg_matches:
                         usg = etree.SubElement(form, 'usg')
-                        usg.text = match
-                        f = f.replace(match, '')
-                        if len(usg_matches) > 0:
-                            for match2 in usg_matches:
-                                if match2 != match:
-                                    usg = etree.SubElement(form, 'usg')
-                                    usg.text = match2
-                                    f = f.replace(match2, '')
+                        usg.text = match[1]
+                        f = f.replace(match[0], '')
 
+                if len(desc_matches) > 0:
+                    for match in desc_matches:
+                        note = etree.SubElement(form, 'note')
+                        note.text = match[1]
+                        f = f.replace(match[0], '')
 
-                # if len(usg_matches) > 0:
-                #     for match in usg_matches:
-                #         usg = etree.SubElement(form, 'usg')
-                #         usg.text = match
-                #         f = f.replace(match, '')
-
-                if len(note_matches) > 0:
-                    for match in note_matches:
-                        note = etree.SubElement(form,'note')
-                        note.text = match
-                        f = f.replace(match,'')
-
-                f = f.strip()
+                # f = input_output.clean_up_str(f)
                 orth.text = f
             for s in splitted_senses:
-                sense = etree.SubElement(entry, 'sense', attrib={'{http://www.w3.org/XML/1998/namespace}lang': 'en', '{http://www.w3.org/XML/1998/namespace}id': str(splitted_senses.index(s)+1)})
+                sense = etree.SubElement(entry, 'sense')
                 usg_matches = usg_pattern.findall(s)
-                note_matches = note_pattern.findall(s)
+                desc_matches = desc_pattern.findall(s)
 
                 if len(usg_matches) > 0:
                     for match in usg_matches:
                         usg = etree.SubElement(sense, 'usg')
-                        usg.text = match
-                        s = s.replace(match, '')
+                        usg.text = match[1]
+                        s = s.replace(match[0], '')
 
-                if len(note_matches) > 0:
-                    for match in note_matches:
-                        note = etree.SubElement(sense,'note')
-                        note.text = match
-                        s = s.replace(match,'')
+                if len(desc_matches) > 0:
+                    for match in desc_matches:
+                        note = etree.SubElement(sense, 'note')
+                        note.text = match[1]
+                        s = s.replace(match[0], '')
 
                 definition = etree.SubElement(sense, 'def')
-                s = s.strip()
+                # s = input_output.clean_up_str(s)
                 definition.text = s
 
             if len(v1) > 1:
@@ -122,4 +125,4 @@ def transform_in_tei(beo_as_dict):
 
 
 et = transform_in_tei(input_output.deserialize('data/splitted_beolingus.pickle'))
-et.write('data/beolingus_tei_2.xml', pretty_print=True, xml_declaration=True, encoding='utf-8')
+et.write('data/beolingus_tei.xml', pretty_print=True, xml_declaration=True, encoding='utf-8')

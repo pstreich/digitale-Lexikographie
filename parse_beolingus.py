@@ -33,7 +33,7 @@ def split_beolingus(lines):
 
 def get_usg(beo_as_dict):
     usg_set = set()
-    usg_pattern = re.compile(r'\[\w+\.?\]')
+    usg_pattern = re.compile(r'(\[(.*?)\])')
     counter = 0
     for k, v in beo_as_dict.items():
         # if counter < 10:
@@ -44,19 +44,18 @@ def get_usg(beo_as_dict):
     return usg_set
 
 
-def get_pos(beo_as_dict):
-    pos_set = set()
-    pos_pattern = re.compile(r'\{\w+\.?\}')
-    counter = 0
+def get_gramm_info(beo_as_dict):
+    gramm_set = set()
+    gramm_pattern = re.compile(r'(\((.*?)\))')
     for k, v in beo_as_dict.items():
         # if counter < 10:
-        usg_matches = pos_pattern.findall(str(v))
-        for match in usg_matches:
-            pos_set.add(match)
-        counter += 1
-    return pos_set
+        gramm_matches = gramm_pattern.findall(str(v))
+        for match in gramm_matches:
+            gramm_set.add(match)
+            print(match)
+    return gramm_set
 
 
-pos = get_pos(input_output.deserialize('data/splitted_beolingus.pickle'))
+pos = get_gramm_info(input_output.deserialize('data/splitted_beolingus.pickle'))
 for e in pos:
     print(e)
